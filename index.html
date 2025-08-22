@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahesh's EC2 Server</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Variables & Resets */
+        :root {
+            --primary-color: #007bff; /* AWS Blue */
+            --accent-color: #28a745; /* A vibrant green */
+            --dark-color: #212529;
+            --light-color: #ffffff;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            color: var(--dark-color);
+            background-image: url('https://www.vectorlogo.zone/logos/aws/aws-icon.svg');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 60%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Overlay to make text readable */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--light-color);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        header h2 {
+            font-size: 1.2em;
+            font-weight: 400;
+            margin: 5px 0 0;
+            color: #d1e7dd;
+        }
+        
+        .main-content {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav {
+            flex: 1;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            min-width: 200px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav li {
+            margin-bottom: 10px;
+        }
+
+        nav a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: var(--dark-color);
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        article {
+            flex: 3;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            line-height: 1.8;
+            color: var(--dark-color);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            header h1 {
+                font-size: 2em;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome to Mahesh's Webserver</h1>
+            <h2>Powered by AWS DevOps</h2>
+        </header>
+
+        <div class="main-content">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="https://aws.amazon.com/codepipeline/">
+                            <img class="nav-icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHBhdGggZD0iTTI4LjA3IDEwLjY3YTIuNjYgMi42NiAwIDAgMC0yLjY2IDIuNjZ2MS4wN2wtMi42NiAxLjUzYTIuNjYgMi42NiAwIDEgMCAyLjY2IDQuNjFoNS4zM2EyLjY2IDIuNjYgMCAxIDAgMC01LjMydi0xLjA3bDIuNjYtMS41M2EyLjY2IDIuNjYgMCAxIDAtMi42Ni00LjYxaC01LjMzem0wIDEuMzNoNS4zM2EuMzMuMzMgMCAwIDEgLjMzLjMzdjEuNzRsLTMuMzMgMS45M2EyLjY2IDIuNjYgMCAwIDAtMS4zMy0uMzRoLS4wN2EyLjY2IDIuNjYgMCAwIDAtMS4yNi4zM2wtMy4zMy0xLjkydi0xLjc0YS4zMy4zMyAwIDAgMSAuMzMtLjMzaDUuMzN6bS0yLjY2IDUuMzJhMS4zMyAxLjMzIDAgMSAxIDAgMi42NiAxLjMzIDEuMzMgMCAwIDEgMC0yLjY2em04IDBhMS4zMyAxLjMzIDAgMSAxIDAgMi42NiAxLjMzIDEuMzMgMCAwIDEgMC0yLjY2em0tOC0xMC42NmExLjMzIDEuMzMgMCAxIDEgMCAyLjY2IDEuMzMgMS4zMyAwIDAgMSAwLTIuNjZ6bS01LjMzIDguNjZ2LTMuMDdsMy4zMyAxLjkyYTIuNjYgMi42NiAwIDAgMCAyLjY2IDQuNjFoNS4zM2EuMzMuMzMgMCAwIDAgLjMzLS4zM3YtMy4wN2wtMy4zMy0xLjkyYTIuNjYgMi42NiAwIDAgMC0yLjY2LTQuNjFoLTUuMzNhLjMzLjMzIDAgMCAwLS4zMy4zM3oiIGZpbGw9IiMwMDdDRkYiLz48L3N2Zz4=" alt="CodePipeline Logo">
+                            AWS CodePipeline
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://aws.amazon.com/codebuild/">
+                            <img class="nav-icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHBhdGggZD0iTTE2IDI5LjMzQTIuNjcgMi42NyAwIDEgMSAxNiAyNGEyLjY3IDIuNjcgMCAwIDEgMCA1LjMzek0xNiA0YTQuNjcgNC42NyAwIDEgMCA0LjY3IDQuNjdBNC42NyA0LjY3IDAgMCAwIDE2IDR6bTAgOC42N0ExMiAxMiAwIDAgMCA0IDE2YTEyIDEyIDAgMCAwIDEyIDEyaDQuNjdWMTZhMTIuMDEgMTIuMDEgMCAwIDAtNC42Ny05LjMzek0yMC42NyAxNmg0LjY2YTEyLjAxIDEyLjAxIDAgMCAwLTQuNjYtOS4zM3Y5LjMzek0xNiAyOC42N2g0LjY3VjI0SDE2eiIgZmlsbD0iI0Y3OTU1QSIvPjwvc3ZnPg==" alt="CodeBuild Logo">
+                            AWS CodeBuild
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://aws.amazon.com/codedeploy/">
+                            <img class="nav-icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHBhdGggZD0iTTI0IDI0SDRWOGgyMHpNMTIgMTB2MTJoOFYxMHpNNiAxMHY0aDR2LTR6bTQgNnY0aDR2LTR6bTQtNnY0aDR2LTR6bTQgNnY0aDR2LTR6IiBmaWxsPSIjRjkyMzI5Ii8+PC9zdmc+" alt="CodeDeploy Logo">
+                            AWS CodeDeploy
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://aws.amazon.com/cloudformation/">
+                            <img class="nav-icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHBhdGggZD0iTTI4IDI0LjY3YTIuNjcgMi42NyAwIDEgMS0yLjY3IDIuNjYgMi42NiAyLjY2IDAgMCAxIDIuNjctMi42NnptLTggMGEyLjY3IDIuNjcgMCAxIDEtMi42NyAyLjY2IDIuNjYgMi42NiAwIDAgMSAyLjY3LTIuNjZ6bS04IDBhMi42NyAyLjY3IDAgMSAxLTIuNjcgMi42NiAyLjY2IDIuNjYgMCAwIDEgMi42Ny0yLjY2ek00IDI0LjY3YTIuNjcgMi42NyAwIDEgMS0yLjY3IDIuNjZBMi42NyAyLjY3IDAgMCAxIDQgMjQuNjd6bTAtOC4wMWEyLjY3IDIuNjcgMCAxIDEtMi42NyAyLjY2IDIuNjcgMi42NyAwIDAgMSAyLjY3LTIuNjZ6bTAtOC4wMUEyLjY3IDIuNjcgMCAxIDEgMS4zMyAxMS4zIDIuNjcgMi42NyAwIDAgMSA0IDguNjZ6bTAgOC4wMWg4djIuNjdINHptOC04LjAxYTIuNjcgMi42NyAwIDEgMS0yLjY3IDIuNjZBMi42NyAyLjY3IDAgMCAxIDEyIDguNjZ6bTggMGEyLjY3IDIuNjcgMCAxIDEtMi42NyAyLjY2IDIuNjcgMi42NyAwIDAgMSAyLjY3LTIuNjZ6bTggMGEyLjY3IDIuNjcgMCAxIDEtMi42NyAyLjY2IDIuNjcgMi42NyAwIDAgMSAyLjY3LTIuNjZ6bTAgOC4wMWEyLjY3IDIuNjcgMCAxIDEtMi42NyAyLjY2IDIuNjcgMi42NyAwIDAgMSAyLjY3LTIuNjZ6bTAtOC4wMWg4djIuNjZoLTguMDF6bS04IDBoOHYyLjY2aC04eiIgZmlsbD0iIzAwN0NGRiIvPjwvc3ZnPg==" alt="CloudFormation Logo">
+                            AWS CloudFormation
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://aws.amazon.com/ec2/">
+                            <img class="nav-icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHBhdGggZD0iTTI0IDI0SDRWOGgyMHpNMTIgMTB2MTJoOFYxMHpNNiAxMHY0aDR2LTR6bTQgNnY0aDR2LTR6bTQtNnY0aDR2LTR6bTQgNnY0aDR2LTR6IiBmaWxsPSIjRjkyMzI5Ii8+PC9zdmc+" alt="EC2 Logo">
+                            AWS EC2
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://aws.amazon.com/s3/">
+                            <img class="nav-icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHBhdGggZD0iTTI0IDI0SDRWOGgyMHpNMTIgMTB2MTJoOFYxMHpNNiAxMHY0aDR2LTR6bTQgNnY0aDR2LTR6bTQtNnY0aDR2LTR6bTQgNnY0aDR2LTR6IiBmaWxsPSIjRjkyMzI5Ii8+PC9zdmc+" alt="S3 Logo">
+                            AWS S3
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://aws.amazon.com/lambda/">
+                            <img class="nav-icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHBhdGggZD0iTTI0IDI0SDRWOGgyMHpNMTIgMTB2MTJoOFYxMHpNNiAxMHY0aDR2LTR6bTQgNnY0aDR2LTR6bTQtNnY0aDR2LTR6bTQgNnY0aDR2LTR6IiBmaWxsPSIjRjkyMzI5Ii8+PC9zdmc+" alt="Lambda Logo">
+                            AWS Lambda
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <article>
+                <div class="image-container">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHBhdGggZD0iTTI4LjA3IDEwLjY3YTIuNjYgMi42NiAwIDAgMC0yLjY2IDIuNjZ2MS4wN2wtMi42NiAxLjUzYTIuNjYgMi42NiAwIDEgMCAyLjY2IDQuNjFoNS4zM2EyLjY2IDIuNjYgMCAxIDAgMC01LjMydi0xLjA3bDIuNjYtMS41M2EyLjY2IDIuNjYgMCAxIDAtMi42Ni00LjYxaC01LjMzem0wIDEuMzNoNS4zM2EuMzMuMzMgMCAwIDEgLjMzLjMzdjEuNzRsLTMuMzMgMS45M2EyLjY2IDIuNjYgMCAwIDAtMS4zMy0uMzRoLS4wN2EyLjY2IDIuNjYgMCAwIDAtMS4yNi4zM2wtMy4zMy0xLjkydi0xLjc0YS4zMy4zMyAwIDAgMSAuMzMtLjMzaDUuMzN6bS0yLjY2IDUuMzJhMS4zMyAxLjMzIDAgMSAxIDAgMi42NiAxLjMzIDEuMzMgMCAwIDEgMC0yLjY2em04IDBhMS4zMyAxLjMzIDAgMSAxIDAgMi42NiAxLjMzIDEuMzMgMCAwIDEgMC0yLjY2em0tOC0xMC42NmExLjMzIDEuMzMgMCAxIDEgMCAyLjY2IDEuMzMgMS4zMyAwIDAgMSAwLTIuNjZ6bS01LjMzIDguNjZ2LTMuMDdsMy4zMyAxLjkyYTIuNjYgMi42NiAwIDAgMCAyLjY2IDQuNjFoNS4zM2EuMzMuMzMgMCAwIDAgLjMzLS4zM3YtMy4wN2wtMy4zMy0xLjkyYTIuNjYgMi42NiAwIDAgMC0yLjY2LTQuNjFoLTUuMzNhLjMzLjMzIDAgMCAwLS4zMy4zM3oiIGZpbGw9IiMwMDdDRkYiLz48L3N2Zz4=" alt="AWS CodePipeline Logo" width="180" height="180">
+                </div>
+                
+                <p>Welcome to the world of AWS DevOps! This server exemplifies a modern Continuous Integration and Continuous Deployment (CI/CD) pipeline. AWS CodePipeline automates the build, test, and deploy phases, while services like CodeBuild and CodeDeploy handle the heavy lifting of compiling code and pushing it to servers. This automated approach ensures that new features and updates are delivered quickly and reliably to users.</p>
+            </article>
+        </div>
+    </div>
+</body>
+</html>
